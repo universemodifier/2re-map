@@ -1,0 +1,186 @@
+:root {
+    --app-bg: #05070d;
+    --app-surface: rgba(17, 22, 34, 0.92);
+    --app-border: rgba(255, 255, 255, 0.08);
+    --app-accent: #20c997;
+    --app-need: #ffc107;
+    --app-mine: #0dcaf0;
+    --navbar-h: 56px;
+}
+
+html, body {
+    height: 100%;
+    background: var(--app-bg);
+    overflow: hidden;
+}
+
+.app-navbar {
+    height: var(--navbar-h);
+    background: rgba(5, 7, 13, 0.75);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--app-border);
+}
+
+#globe-wrap {
+    position: fixed;
+    inset: var(--navbar-h) 0 0 0;
+    background: radial-gradient(ellipse at center, #0b1224 0%, var(--app-bg) 70%);
+}
+
+#globe {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+
+#globe:active { cursor: grabbing; }
+#globe.picking,
+#globe.picking:active { cursor: crosshair; }
+
+.globe-tooltip {
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    border-radius: .5rem;
+    padding: .25rem .6rem;
+    font-size: .85rem;
+    color: #fff;
+}
+
+/* Overlays on top of the globe */
+.map-stats,
+.map-hint {
+    position: absolute;
+    bottom: 1rem;
+    padding: .35rem .75rem;
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    border-radius: 2rem;
+    pointer-events: none;
+}
+.map-stats { left: 1rem; }
+.map-hint { left: 50%; transform: translateX(-50%); }
+
+.pick-banner {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    padding: .6rem 1rem;
+    background: rgba(13, 202, 240, 0.18);
+    border: 1px solid rgba(13, 202, 240, 0.5);
+    border-radius: 2rem;
+    backdrop-filter: blur(8px);
+    white-space: nowrap;
+}
+
+/* Floating pin card */
+.pin-card {
+    position: fixed;
+    z-index: 1040;
+    width: 320px;
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100vh - var(--navbar-h) - 2rem);
+    overflow-y: auto;
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    backdrop-filter: blur(12px);
+    animation: card-in .18s ease-out;
+}
+
+@keyframes card-in {
+    from { opacity: 0; transform: translateY(6px) scale(.98); }
+    to   { opacity: 1; transform: none; }
+}
+
+.pin-card .card-close {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+}
+
+.pin-card .notes {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.pin-card .badge,
+.tag-input .badge {
+    font-weight: 500;
+}
+
+.avatar {
+    width: 56px;
+    height: 56px;
+    flex: 0 0 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--app-border);
+    background: #1c2333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--app-accent);
+}
+
+.avatar-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    background: #1c2333 center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 2.5rem;
+}
+.avatar-preview.has-image { border-style: solid; }
+
+/* Tag input */
+.tag-input {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .35rem;
+    min-height: 2.6rem;
+    cursor: text;
+}
+.tag-input input {
+    flex: 1 1 8rem;
+    min-width: 6rem;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: inherit;
+}
+.tag-input:focus-within {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+}
+.tag-input .badge button {
+    border: 0;
+    background: none;
+    color: inherit;
+    padding: 0 0 0 .3rem;
+    line-height: 1;
+    opacity: .7;
+}
+.tag-input .badge button:hover { opacity: 1; }
+
+/* Location search results */
+.location-results {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 1060;
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+.min-w-0 { min-width: 0; }

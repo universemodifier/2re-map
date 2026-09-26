@@ -1,0 +1,7 @@
+/data/*
+!/data/.htaccess
+/public/uploads/*
+!/public/uploads/.htaccess
+.DS_Store
+.idea/
+.vscode/
